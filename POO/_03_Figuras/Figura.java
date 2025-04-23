@@ -12,10 +12,10 @@ public abstract class Figura {
     
     protected String colorRelleno;
     
-    static final String NEGRO="\033[30m";
-    static final String ROJO="\033[31m";
-    static final String VERDE="\033[32m";
-    static final String AZUL="\033[34m";
+    public static final String NEGRO="\033[30m";
+    public static final String ROJO="\033[31m";
+    public static final String VERDE="\033[32m";
+    public static final String AZUL="\033[34m";
 
     
     
