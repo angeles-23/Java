@@ -10,7 +10,7 @@ package _03_figuras;
  */
 public abstract class Figura {
     
-    protected String colorRelleno = NEGRO;
+    protected String colorRelleno;
     
     static final String NEGRO="\033[30m";
     static final String ROJO="\033[31m";
@@ -20,26 +20,28 @@ public abstract class Figura {
     
     
     public Figura() {
+        this.colorRelleno = NEGRO;
     }
 
     
     
-    public String setColor(TipoColor color) {
+    public void setColorRelleno(TipoColor color) {
         switch (color) {
-        case VERDE:
-            this.colorRelleno = VERDE;
-            return colorRelleno;
-        case AZUL:
-            this.colorRelleno = AZUL;
-            return colorRelleno;
-        case ROJO:
-            this.colorRelleno = ROJO;
-            return colorRelleno;
-        case NEGRO:
-            this.colorRelleno = NEGRO;
-            return colorRelleno;
+            case NEGRO:
+                this.colorRelleno = NEGRO;
+                break;
+            case ROJO:
+                this.colorRelleno = ROJO;
+                break;
+            case VERDE:
+                this.colorRelleno = VERDE;
+                break;
+            case AZUL:
+                this.colorRelleno = AZUL;
+                break;
+            default:
+                System.out.println("El color " +  color + " no existe");
         }
-        return colorRelleno;
     }
     
     
