@@ -7,7 +7,6 @@ import java.sql.*;
  * @author angam
  */
 
-
 public class ejemplo_BD {
 
     public static void main(String[] args) {
@@ -28,17 +27,16 @@ public class ejemplo_BD {
         
         
         /*************************************
-         * 2. CREAMOS LA CONEXIÓN CON LA BBDD
+         * 2. CREAMOS LA CONEXIÃ“N CON LA BBDD
          *************************************/
         String url = "jdbc:mysql://localhost/instituto";  // jdbc:mysql://127.0.0.1/nombreBaseDatos
         String user = "root";
         String password = "";
         
         
-        
         try{
             Connection miConexion = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexión realizada correctamente");
+            System.out.println("ConexiÃ³n realizada correctamente");
             System.out.println("");
             
             /***************************
@@ -48,15 +46,16 @@ public class ejemplo_BD {
             /* 
             ResultSet
                 - Dispone de un cursor para desplazarse por la consulta.
-                - Dispone de métodos para acceder al valor de cada campo(nombre columna).
-                - Es un objeto de SOLO LECTURA y de SOLO AVANCE. Se recorrer de atrás hacia delante.
-                - El método next() nos permite desplazarnos.
-                - next() devuelve true si encuentra algún valor y devuelve false si NO lo encuentra.
+                - Dispone de mÃ©todos para acceder al valor de cada campo(nombre columna).
+                - Es un objeto de SOLO LECTURA y de SOLO AVANCE. Se recorrer de atrÃ¡s hacia delante.
+                - El mÃ©todo next() nos permite desplazarnos.
+                - next() devuelve true si encuentra algÃºn valor y devuelve false si NO lo encuentra.
             */
             
             Statement stmt = miConexion.createStatement();
            
             /* SELECT */
+            // BD tienda
             /*
             ResultSet rs = stmt.executeQuery(""
                     + "SELECT * "
@@ -84,18 +83,9 @@ public class ejemplo_BD {
             }
             
             
-            
-            
-            
         }catch(Exception error){
-            System.out.println("Error al crear la conexión");
+            System.out.println("Error al crear la conexiÃ³n");
         }
-        
-        
-        
-        
-        
-        
         
         
         
