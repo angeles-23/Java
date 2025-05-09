@@ -1,4 +1,5 @@
 package __P_01_EjemploConexionBD;
+import com.mysql.cj.xdevapi.InsertStatement;
 import java.sql.*;
 
 /**
@@ -8,7 +9,6 @@ import java.sql.*;
 public class ejemplo_BD {
 
     public static void main(String[] args) {
-        // TODO code application logic here
         
         /**********************
          * 1. CARGAR EL DRIVER
@@ -22,8 +22,6 @@ public class ejemplo_BD {
         }
         
         
-        
-        
         /*************************************
          * 2. CREAMOS LA CONEXIÓN CON LA BBDD
          *************************************/
@@ -32,14 +30,14 @@ public class ejemplo_BD {
         String password = "";
         
         Connection miConexion = null;
+        
         try{
             miConexion = DriverManager.getConnection(url, user, password);
             System.out.println("Conexión realizada correctamente");
             System.out.println("");
             
             
-            
-            /***************************
+            /**************************
             * 3. EJECUTAR UNA CONSULTA
             ***************************/
             /* 
@@ -55,6 +53,7 @@ public class ejemplo_BD {
            
             /* SELECT */
             //BD tienda
+            
             ResultSet rs = stmt.executeQuery(""
                     + "SELECT * "
                     + "FROM producto "
@@ -63,10 +62,15 @@ public class ejemplo_BD {
             
             while(rs.next()){
                 String nombre = rs.getString("nombre");
-                int codigo = rs.getInt("codigo"); // rs.getInt(nombreColumna);
+                int codigo = rs.getInt("codigo"); // rs.getTipoVariable(nombreColumna);
                 System.out.println("Codigo: " + codigo + " - Nombre: " + nombre);
             }
             
+            ResultSet rsProducto = stmt.executeQuery("SELECT * "
+                                                   + "FROM producto");
+            
+            ResultSet rsFabricante = stmt.executeQuery("SELECT * "
+                                                     + "FROM fabricante");
             
             /*
             //BD instituto
@@ -81,46 +85,94 @@ public class ejemplo_BD {
             }
             */
             
+//            String consultaEjemplo;
+//            while(rs.next()){
+//                if(rs.getInt("codigo") > 10){
+//                     consultaEjemplo= "UPDATE ... SET precio 100";
+//                }else{
+//                    consultaEjemplo = "UPDATE ... SET precio 600";
+//                }
+//            }
             
             
-            /*******************
+            /********************
              * 4. INSERTAR EN BD
-             *******************/
-            String nombre = "Portátil 4K";
+             ********************/
+            String nombre = "SATA50000";
             double precio = 299.99;
             int codigo_fabricante = 4;
             
             String consulta = "INSERT INTO producto (nombre, precio, codigo_fabricante) VALUES ('"+nombre+"',"+precio+","+codigo_fabricante+");" ;
             String consultaConNullSinVariables = "INSERT INTO producto VALUES (null,'"+nombre+"',"+precio+","+codigo_fabricante+");" ;
-//            System.out.println(consulta);
-//            int result = stmt.executeUpdate(consulta);
+            System.out.println(consulta);
+            int result = stmt.executeUpdate(consulta);
             
 
-            /**************
-             * UPDATE EN BD:
-             ***************/
+            /******************
+             * 5. UPDATE EN BD
+             ******************/
 //          Actualiza, ya sea para borrar o añadir
-
-            String actualizacion = "UPDATE producto SET nombre='" + "Ordenador de mesa" + "' "
-                                + "WHERE codigo = 12;";
+            String cambioNombre = "Ordenador de mesa";
+            String actualizacion = "UPDATE producto SET nombre='" + cambioNombre + "' "
+                                + "WHERE codigo = 14;";
             System.out.println(actualizacion);
             int resultUpdate = stmt.executeUpdate(actualizacion);
             
             
-            /**************
-             * DELETE EN BD:
-             ***************/
-            String borrar = "DELETE producto SET nombre='" + "Ordenador de mesa" + "' "
-                           + "WHERE codigo = 12;";
+            /******************
+             * 6. DELETE EN BD
+             ******************/
+            String borrar = "DELETE FROM producto "
+                           + "WHERE codigo = 14;";
             System.out.println(borrar);
             int resultDelete = stmt.executeUpdate(borrar);
             
             
-            /***********************
-             * DESCONEXIÓN DE LA BD
-             ***********************/
+            /**************************
+             * 7. CONSULTAS PREPARADAS
+             **************************/
+            String nombrePreparado = "SATA50000";
+            int codigo = 3;
+            
+            String sql1 = "SELECT * "
+                    + "FROM producto "
+                    + "WHERE nombre = '" + nombrePreparado + "';";
+            
+            String sql2 = "SELECT * "
+                    + "FROM producto "
+                    + "WHERE nombre = ? OR codigo = ?";
+            
+            PreparedStatement preparadaStmt = miConexion.prepareStatement(sql2);
+            preparadaStmt.setString(1, nombrePreparado);
+            preparadaStmt.setInt(2, codigo);
+            ResultSet rsConsultaPreparada1 = preparadaStmt.executeQuery();
+            
+            
+            preparadaStmt.setString(1, "SATA8000");
+            preparadaStmt.setInt(2, 45);
+            ResultSet rsConsultaPreparada2 = preparadaStmt.executeQuery();
+            
+            
+            String insert = "INSERT INTO producto VALUES(null,?,?,?);" ;
+            PreparedStatement insertPreparada = miConexion.prepareStatement(insert);
+            
+            // Cambia de la función preparada con el tipo de cambio y en los (), 
+            // le damos la poscicion de la variable y la variable por la que se quiere cambiar
+            // finalmente actualizo la función preparada
+            insertPreparada.setString(1, "SATA232323");
+            insertPreparada.setDouble(2, 233.64);
+            insertPreparada.setInt(3, 4);
+            insertPreparada.executeUpdate();
+            
+            
+            /**************************
+             * 8. DESCONEXIÓN DE LA BD
+             **************************/
             rs.close();
+            rsProducto.close();
+            rsFabricante.close();
             stmt.close();
+            
             
         }catch(SQLException sql){
             System.out.println("Error al conectar con la base de datos");
@@ -136,8 +188,6 @@ public class ejemplo_BD {
                 }
             }
         }
-        
-        
         
         
     }//MAIN
