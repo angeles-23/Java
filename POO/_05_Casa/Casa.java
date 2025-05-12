@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package _05_Casa;
 
 /**
- *
  * @author angam
  */
 public class Casa {
@@ -30,7 +25,6 @@ public class Casa {
     }
 
     
-    
     public String getPropietario() {
         return this.propietario;
     }
@@ -46,7 +40,10 @@ public class Casa {
     public double getPrecioVenta() {
         return this.precioVenta;
     }
-    
+
+    public void setPropietario(String propietario) {
+        this.propietario = propietario;
+    }
     
     
     public void imprimirDatos(){
@@ -55,15 +52,8 @@ public class Casa {
     }
     
     
-    
     private int calcularSuperficieTotal(){
         return this.superficiePlanta1 + this.superficiePlanta2;
     }
-    
-    
-    
-    
-    
-    
     
 }
