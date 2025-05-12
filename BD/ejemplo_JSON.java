@@ -24,7 +24,6 @@ public class ejemplo_JSON {
         System.out.println("\033[34mIMPRIMIR 1: jsonObject.toString()\033[30m");
         System.out.println(jsonObject.toString());
 
-        
         //2º Forma de imprimir: Formato por partes (+ legible)
         System.out.println("\n\033[34mIMPRIMIR 2: jsonObject.toString(1)\033[30m");
         System.out.println(jsonObject.toString(1));
@@ -84,14 +83,14 @@ public class ejemplo_JSON {
          * EJEMPLO 4: Recorrer JSON
          ************************************************************/
         System.out.println("\033[34m\nRECORRER JSON\033[30m");
-        for(int i= 0; i<ja_listaDeContactos.length(); i++){
+        for(int i=0; i<ja_listaDeContactos.length(); i++){
             JSONObject objetoJSON = ja_listaDeContactos.getJSONObject(i);
             
             String nombre = objetoJSON.getString("nombre");
             int edad = objetoJSON.getInt("edad");
             String email = objetoJSON.getString("email");
 
-            JSONObject direccion = objetoJSON.getJSONObject("direccion"); // cuidado con el nombre de la clave
+            JSONObject direccion = objetoJSON.getJSONObject("direccion"); 
             String calle = direccion.getString("calle");
 
             System.out.println("Nombre: " + nombre);
