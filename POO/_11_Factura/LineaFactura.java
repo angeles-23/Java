@@ -10,13 +10,17 @@ public class LineaFactura {
     private int cantidad;
     private double precioUnitario;
     private double importeLinea;
+    private static int numeroReferencia = 0;
 
     
     public LineaFactura(String ref, String desc, int cantidad, double precioU) {
-        this.refProducto = ref;
+//        numeroReferencia++;
+//        ref = "REF" + String.format("%03d", numeroReferencia); // Rellena con 0s a la izquierda
+        this.refProducto = "REF" + ref;
         this.descripcion = desc;
         this.cantidad = cantidad;
         this.precioUnitario = precioU;
+        this.importeLinea = this.cantidad*this.precioUnitario;
     }
 
     
@@ -60,10 +64,11 @@ public class LineaFactura {
         this.importeLinea = importeLinea;
     }
     
+
     
     public void imprimirLinea(){
-        
+        String formatoLinea = String.format("%-6d %-18s %-12.2f %.2f", this.cantidad, this.descripcion, this.precioUnitario, this.importeLinea);
+        System.out.println(formatoLinea);
     }//
-    
     
 }///
